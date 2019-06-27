@@ -32,6 +32,8 @@ public interface HistoryService {
      */
     List<HistoryPOJO> getAllHis();
 
+    List<HistoryPOJO> getHisByPage(Integer pageNum, Integer pageSize);
+
     /**
      * 模糊查询获得变更记录
      * @param empName

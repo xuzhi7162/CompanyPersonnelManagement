@@ -30,9 +30,18 @@ public interface DeptService {
     List<DeptPOJO> getAllDepts();
 
     /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<DeptPOJO> getDeptByPage(Integer pageNum, Integer pageSize);
+
+    /**
      * 根据职位 NO 查询该职位的相关信息
      * @param deptNo
      * @return
      */
     DeptPOJO getDeptsByDeptNo(Integer deptNo);
+
+
 }

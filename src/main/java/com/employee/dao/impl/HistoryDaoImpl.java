@@ -69,4 +69,12 @@ public class HistoryDaoImpl implements HistoryDao {
         List list = DBHelper.executeQuery(sql, HistoryPOJO.class);
         return list;
 }
+
+    @Override
+    public List<HistoryPOJO> queryHisByPage(Integer pageNum, Integer pageSize) {
+        String sql = "select * from dept,employee,history where dept.DEPTNO=history.DEPTNO and employee.EMPNO=history.EMPNO limit ?,?";
+
+        List<HistoryPOJO> list = DBHelper.executeQuery(sql, HistoryPOJO.class, pageNum, pageSize);
+        return list;
+    }
 }

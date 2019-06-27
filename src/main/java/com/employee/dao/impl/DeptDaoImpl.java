@@ -2,14 +2,11 @@ package com.employee.dao.impl;
 
 import com.employee.dao.DeptDao;
 import com.employee.pojo.DeptPOJO;
-import com.employee.util.C3P0Utils;
 import com.employee.util.DBHelper;
-import org.apache.commons.dbutils.QueryRunner;
 
 import java.util.List;
 
 public class DeptDaoImpl implements DeptDao {
-    private QueryRunner qr = new QueryRunner(C3P0Utils.getDataSource());
 
 
     @Override
@@ -55,9 +52,19 @@ public class DeptDaoImpl implements DeptDao {
 
     }
 
+    @Override
+    public List<DeptPOJO> queryDeptByPage(Integer start, Integer size) {
+        String sql = "select * from dept limit ?,?";
+        List<DeptPOJO> list = DBHelper.executeQuery(sql, DeptPOJO.class, start, size);
+        return list;
+    }
+
+
     public static void main(String[] args) {
         DeptDaoImpl deptDao = new DeptDaoImpl();
         DeptPOJO deptPOJO = deptDao.queryDeptByDeptNo(6);
         System.out.println(deptPOJO);
     }
+
+
 }

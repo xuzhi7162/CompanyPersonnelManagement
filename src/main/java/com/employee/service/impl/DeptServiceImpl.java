@@ -4,6 +4,7 @@ import com.employee.dao.DeptDao;
 import com.employee.dao.impl.DeptDaoImpl;
 import com.employee.pojo.DeptPOJO;
 import com.employee.service.DeptService;
+import com.employee.util.PageUtil;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ public class DeptServiceImpl implements DeptService {
     public boolean updateDept(DeptPOJO deptPOJO) {
         int i = deptDao.updateDept(deptPOJO);
         return (i > 0)? true:false;
-
     }
 
     @Override
@@ -33,6 +33,12 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public List<DeptPOJO> getAllDepts() {
         return deptDao.queryAllDepts();
+    }
+
+    @Override
+    public List<DeptPOJO> getDeptByPage(Integer pageNum,Integer pageSize) {
+        List<DeptPOJO> deptPOJOS = deptDao.queryDeptByPage(pageNum * pageSize, pageSize);
+        return deptPOJOS;
     }
 
     @Override

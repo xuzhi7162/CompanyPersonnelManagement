@@ -37,4 +37,13 @@ public interface DeptDao {
      */
     List<DeptPOJO> queryAllDepts();
 
+
+    /**
+     * 根据页码来获取列表
+     * @param start
+     * @param size
+     * @return
+     */
+    List<DeptPOJO> queryDeptByPage(Integer start, Integer size);
+
 }

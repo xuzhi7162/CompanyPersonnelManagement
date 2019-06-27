@@ -160,6 +160,11 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
+    public List<EmpPOJO> getEmpByPage(Integer pageNum, Integer pageSize) {
+        return empDao.queryEmpByPage(pageNum * pageSize, pageSize);
+    }
+
+    @Override
     public EmpPOJO getEmpByEmpNO(String empNo) {
         return empDao.queryEmpByEmpNo(empNo);
     }

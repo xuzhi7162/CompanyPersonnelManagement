@@ -46,4 +46,13 @@ public interface EmpDao {
     List<EmpPOJO> queryAllEmps();
 
 
+    /**
+     * 根据页码来获取员工列表
+     * @param start
+     * @param size
+     * @return
+     */
+    List<EmpPOJO> queryEmpByPage(Integer start, Integer size);
+
+
 }

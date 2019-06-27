@@ -76,6 +76,15 @@ public class EmpDaoImpl implements EmpDao {
 
     }
 
+    @Override
+    public List<EmpPOJO> queryEmpByPage(Integer start, Integer size) {
+        String sql = "select * from employee,dept where employee.DEPTNO=dept.DEPTNO limit ?,?";
+
+        List<EmpPOJO> list = DBHelper.executeQuery(sql, EmpPOJO.class, start, size);
+
+        return list;
+    }
+
 
     public static void main(String[] args) {
         EmpDaoImpl empDao = new EmpDaoImpl();

@@ -38,6 +38,14 @@ public interface HistoryDao {
      */
     List<HistoryPOJO> queryAllHis();
 
+    /**
+     * 分页查询
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<HistoryPOJO> queryHisByPage(Integer pageNum, Integer pageSize);
+
 
 
 }

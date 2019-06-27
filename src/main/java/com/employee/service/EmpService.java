@@ -36,6 +36,8 @@ public interface EmpService {
      */
     List<EmpPOJO> getAllEmps();
 
+    List<EmpPOJO> getEmpByPage(Integer start, Integer pageSize);
+
     /**
      * 根据员工 No 获取该员工的所有信息
      * @param empNo

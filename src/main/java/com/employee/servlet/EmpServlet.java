@@ -2,10 +2,12 @@ package com.employee.servlet;
 
 import com.employee.pojo.DeptPOJO;
 import com.employee.pojo.EmpPOJO;
+import com.employee.pojo.PagePOJO;
 import com.employee.service.DeptService;
 import com.employee.service.EmpService;
 import com.employee.service.impl.DeptServiceImpl;
 import com.employee.service.impl.EmpServiceImpl;
+import com.employee.util.PageUtil;
 import com.employee.util.PathUtil;
 
 import javax.servlet.ServletException;
@@ -27,8 +29,20 @@ public class EmpServlet extends HttpServlet {
         String path = PathUtil.checkPath(req);
 
         if(path.equals("list")) {
-            List<EmpPOJO> allEmps = empService.getAllEmps();
-            req.setAttribute("emps",allEmps);
+            String currentPage = req.getParameter("currentPage");
+            int current = 0;
+            if(currentPage != null){
+                current = Integer.parseInt(currentPage) - 1;
+            }
+            List<EmpPOJO> empByPage = empService.getEmpByPage(current, 5);
+            PagePOJO page = new PagePOJO();
+            int rows = PageUtil.getRows("employee");
+            page.setRows(rows);
+            page.setPageNum(PageUtil.getPageNum(rows,5));
+            page.setPageCurrent(current + 1);
+
+            req.setAttribute("page", page);
+            req.setAttribute("emps", empByPage);
             req.getRequestDispatcher("/employee.jsp").forward(req,resp);
         } else if(path.equals("addPage")) {
             List<DeptPOJO> allDepts = deptService.getAllDepts();
@@ -56,8 +70,10 @@ public class EmpServlet extends HttpServlet {
             empPOJO.setEmpAddr(empAddr);
             empPOJO.setSalary(Integer.valueOf(salary));
 
-            empService.addEmp(empPOJO);
+            Boolean aBoolean = empService.addEmp(empPOJO);
+            String msg = aBoolean ? "员工添加成功":"员工添加失败";
 
+            req.setAttribute("msg", msg);
             req.getRequestDispatcher("/emp/list").forward(req,resp);
         } else if(path.equals("info")) {
             String empNo = req.getParameter("empNo");
@@ -92,8 +108,10 @@ public class EmpServlet extends HttpServlet {
             empPOJO.setSalary(Integer.valueOf(salary));
             empPOJO.setChangeReason(changeReason);
 
-            empService.updateEmp(empPOJO);
+            Boolean aBoolean = empService.updateEmp(empPOJO);
+            String msg = aBoolean ? "员工信息更新成功":"员工信息更新失败";
 
+            req.setAttribute("msg", msg);
             req.getRequestDispatcher("/emp/list").forward(req,resp);
         } else if(path.equals("leaveinfo")) {
             String empNo = req.getParameter("empNo");
@@ -103,7 +121,10 @@ public class EmpServlet extends HttpServlet {
             req.getRequestDispatcher("/dimission.jsp").forward(req,resp);
         } else if(path.equals("delete")) {
             String empNo = req.getParameter("empNo");
-            empService.deleteEmp(empNo);
+            Boolean aBoolean = empService.deleteEmp(empNo);
+            String msg = aBoolean ? "员工减员成功":"员工减员失败";
+
+            req.setAttribute("msg", msg);
             req.getRequestDispatcher("/emp/list").forward(req,resp);
         } else if(path.equals("leave")) {
             String empNo = req.getParameter("empNo");
@@ -128,7 +149,10 @@ public class EmpServlet extends HttpServlet {
             empPOJO.setSalary(Integer.valueOf(salary));
             empPOJO.setChangeReason(changeReason);
 
-            empService.leaveEmp(empPOJO);
+            Boolean aBoolean = empService.leaveEmp(empPOJO);
+            String msg = aBoolean ? "员工离职成功":"员工离职失败";
+
+            req.setAttribute("msg", msg);
             req.getRequestDispatcher("emp/list").forward(req,resp);
         }
 
