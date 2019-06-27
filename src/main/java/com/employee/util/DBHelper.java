@@ -73,19 +73,27 @@ public class DBHelper {
      */
     public static int executeUpdate(String sql, Object...params) {
         try {
-//            conn.setAutoCommit(false);
             int update = qr.update(sql, params);
-//            conn.commit();
             return update;
         } catch (SQLException e) {
-//            try {
-////                conn.rollback();
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            }
             e.printStackTrace();
             return 0;
         }
+    }
+
+    /**
+     * @param conn
+     * @param sql
+     * @param params
+     * @return
+     */
+    public static int executeNonQuery(Connection conn, String sql, Object...params) throws SQLException {
+        QueryRunner q = new QueryRunner();
+        int update = 0;
+
+        update = q.update(conn, sql, params);
+
+        return update;
     }
 
     /**
