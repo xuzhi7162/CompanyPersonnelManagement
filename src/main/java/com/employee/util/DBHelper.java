@@ -95,17 +95,20 @@ public class DBHelper {
      */
     public static Integer getMax(String sql) {
         int empNoMax = 1;
-        Connection connection = getConnection();
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            conn = getConnection();
+            preparedStatement = conn.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 empNoMax = resultSet.getInt("max");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DbUtils.closeQuietly(connection);
+            DbUtils.closeQuietly(conn,preparedStatement,resultSet);
         }
         return empNoMax;
     }
@@ -126,19 +129,22 @@ public class DBHelper {
         sql.append(" where ");
         sql.append(colName);
         sql.append("=?");
-        Connection conn = getConnection();
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         try {
             System.out.println(sql);
-            PreparedStatement preparedStatement = conn.prepareStatement(String.valueOf(sql));
+            conn = getConnection();
+            preparedStatement = conn.prepareStatement(String.valueOf(sql));
             preparedStatement.setString(1, String.valueOf(param));
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 amount = resultSet.getInt("amount");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DbUtils.closeQuietly(conn);
+            DbUtils.closeQuietly(conn,preparedStatement,resultSet);
         }
         return amount;
     }
