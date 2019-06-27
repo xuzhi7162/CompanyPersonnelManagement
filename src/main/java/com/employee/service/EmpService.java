@@ -1,6 +1,7 @@
 package com.employee.service;
 
 import com.employee.pojo.EmpPOJO;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 
@@ -9,25 +10,25 @@ public interface EmpService {
      * 添加员工信息
      * @param empPOJO
      */
-    void addEmp(EmpPOJO empPOJO);
+    Boolean addEmp(EmpPOJO empPOJO);
 
     /**
      * 修改员工信息
      * @param empPOJO
      */
-    void updateEmp(EmpPOJO empPOJO);
+    Boolean updateEmp(EmpPOJO empPOJO);
 
     /**
      * 员工减员，删除该员工的所有记录
      * @param empNo
      */
-    void deleteEmp(String empNo);
+    Boolean deleteEmp(String empNo);
 
     /**
      * 员工离职操作，修改状态为离职，但是不删除数据库中的信息
      * @param empPOJO
      */
-    void leaveEmp(EmpPOJO empPOJO);
+    Boolean leaveEmp(EmpPOJO empPOJO);
 
     /**
      * 获取员工列表

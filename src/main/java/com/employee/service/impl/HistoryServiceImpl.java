@@ -6,7 +6,9 @@ import com.employee.pojo.EmpPOJO;
 import com.employee.pojo.HistoryPOJO;
 import com.employee.service.HistoryService;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 public class HistoryServiceImpl implements HistoryService {
@@ -14,7 +16,7 @@ public class HistoryServiceImpl implements HistoryService {
 
 
     @Override
-    public void addHistory(EmpPOJO empPOJO) {
+    public Integer addHistory(Connection conn, EmpPOJO empPOJO) throws SQLException {
 
         HistoryPOJO historyPOJO = new HistoryPOJO();
         historyPOJO.setEmpNo(empPOJO.getEmpNo());
@@ -24,11 +26,11 @@ public class HistoryServiceImpl implements HistoryService {
         historyPOJO.setChangeDate(date);
         historyPOJO.setChangeReason(empPOJO.getChangeReason());
 
-        historyDao.insertHis(historyPOJO);
+        return historyDao.insertHis(conn, historyPOJO);
     }
 
     @Override
-    public void addLeave(EmpPOJO empPOJO) {
+    public Integer addLeave(Connection conn, EmpPOJO empPOJO) throws SQLException {
 
         HistoryPOJO historyPOJO = new HistoryPOJO();
         historyPOJO.setEmpNo(empPOJO.getEmpNo());
@@ -40,12 +42,12 @@ public class HistoryServiceImpl implements HistoryService {
         historyPOJO.setDimissionDate(date);
         historyPOJO.setDimissionReason(empPOJO.getChangeReason());
 
-        historyDao.insertLeave(historyPOJO);
+        return historyDao.insertLeave(conn, historyPOJO);
     }
 
     @Override
-    public void deleteHis(String empNo) {
-        historyDao.deleteHis(empNo);
+    public Integer deleteHis(Connection conn, String empNo) throws SQLException {
+        return historyDao.deleteHis(conn, empNo);
     }
 
     @Override

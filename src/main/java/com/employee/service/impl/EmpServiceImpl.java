@@ -1,20 +1,29 @@
 package com.employee.service.impl;
 
 import com.employee.dao.EmpDao;
+import com.employee.dao.HistoryDao;
 import com.employee.dao.impl.EmpDaoImpl;
+import com.employee.dao.impl.HistoryDaoImpl;
 import com.employee.pojo.EmpPOJO;
 import com.employee.service.EmpService;
 import com.employee.service.HistoryService;
+import com.employee.util.DBHelper;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 public class EmpServiceImpl implements EmpService {
     private EmpDao empDao = new EmpDaoImpl();
+    private HistoryDao historyDao = new HistoryDaoImpl();
     private HistoryService historyService = new HistoryServiceImpl();
 
+
     @Override
-    public void addEmp(EmpPOJO empPOJO) {
+    public Boolean addEmp(EmpPOJO empPOJO) {
+        Connection conn = DBHelper.getConnection();
+
         String empNo = empPOJO.getEmpNo();
         int no = Integer.parseInt(empNo);
         if(no < 10){
@@ -30,30 +39,119 @@ public class EmpServiceImpl implements EmpService {
         }else {
             empPOJO.setEmpNo(empNo);
         }
-        empDao.insertEmp(empPOJO);
         empPOJO.setChangeReason("入职");
-        historyService.addHistory(empPOJO);
+
+        try {
+            conn.setAutoCommit(false);
+            int i = empDao.insertEmp(conn, empPOJO);
+            Integer integer = historyService.addHistory(conn, empPOJO);
+            conn.commit();
+            return (i > 0 && integer > 0 ) ? true:false;
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     @Override
-    public void updateEmp(EmpPOJO empPOJO) {
-        empDao.updateEmp(empPOJO);
-        historyService.addHistory(empPOJO);
+    public Boolean updateEmp(EmpPOJO empPOJO) {
+        Connection conn = DBHelper.getConnection();
+        try {
+            conn.setAutoCommit(false);
+            int i = empDao.updateEmp(conn, empPOJO);
+            Integer integer = historyService.addHistory(conn, empPOJO);
+            conn.commit();
+            return (i > 0 && integer > 0 ) ? true:false;
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+
     }
 
     @Override
-    public void deleteEmp(String empNo) {
-        empDao.deleteEmp(empNo);
-        historyService.deleteHis(empNo);
+    public Boolean deleteEmp(String empNo) {
+        Connection conn = DBHelper.getConnection();
+
+        try {
+            conn.setAutoCommit(false);
+            int i = empDao.deleteEmp(conn, empNo);
+            Integer integer = historyService.deleteHis(conn, empNo);
+            conn.commit();
+            return (i > 0 && integer > 0 ) ? true:false;
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
 
     }
 
     @Override
-    public void leaveEmp(EmpPOJO empPOJO) {
+    public Boolean leaveEmp(EmpPOJO empPOJO) {
+        Connection conn = DBHelper.getConnection();
+
         empPOJO.setLeaveDate(new Date(new java.util.Date().getTime()));
         empPOJO.setState(0);
-        empDao.levelEmp(empPOJO);
-        historyService.addLeave(empPOJO);
+
+        try {
+            conn.setAutoCommit(false);
+            int i = empDao.levelEmp(conn, empPOJO);
+            Integer integer = historyService.addLeave(conn, empPOJO);
+            conn.commit();
+            return (i > 0 && integer > 0 ) ? true:false;
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+
     }
 
     @Override

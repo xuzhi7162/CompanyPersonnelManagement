@@ -5,19 +5,16 @@ import com.employee.pojo.EmpPOJO;
 import com.employee.util.DBHelper;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class EmpDaoImpl implements EmpDao {
 
     @Override
-    public int insertEmp(EmpPOJO empPOJO) {
+    public int insertEmp(Connection conn,EmpPOJO empPOJO) throws SQLException {
         String sql = "insert into employee(EMPNO,DEPTNO,EMPNAME,EMPSEX,ENTRYDATE,EMPPHONE,EMPADDR,SALARY) values(?,?,?,?,?,?,?,?)";
 
-
-        return DBHelper.executeUpdate(sql,new Object[]{
+        return DBHelper.executeNonQuery(conn,sql,new Object[]{
                 empPOJO.getEmpNo()
                 ,empPOJO.getDeptNo()
                 ,empPOJO.getEmpName()
@@ -30,10 +27,10 @@ public class EmpDaoImpl implements EmpDao {
     }
 
     @Override
-    public int updateEmp(EmpPOJO empPOJO) {
+    public int updateEmp(Connection conn, EmpPOJO empPOJO) throws SQLException {
         String sql = "update employee set DEPTNO=?,EMPNAME=?,EMPSEX=?,ENTRYDATE=?,EMPPHONE=?,EMPADDR=?,SALARY=? where EMPNO=?";
 
-        return DBHelper.executeUpdate(sql,new Object[]{
+        return DBHelper.executeNonQuery(conn, sql,new Object[]{
                 empPOJO.getDeptNo()
                 ,empPOJO.getEmpName()
                 ,empPOJO.getEmpSex()
@@ -43,22 +40,21 @@ public class EmpDaoImpl implements EmpDao {
                 ,empPOJO.getSalary()
                 ,empPOJO.getEmpNo()
         });
-
     }
 
     @Override
-    public int levelEmp(EmpPOJO empPOJO) {
+    public int levelEmp(Connection conn, EmpPOJO empPOJO) throws SQLException {
         String sql = "update employee set LEAVEDATE=?,STATE=0 where EMPNO=?";
 
-       return DBHelper.executeUpdate(sql,empPOJO.getLeaveDate(),empPOJO.getEmpNo());
+       return DBHelper.executeNonQuery(conn, sql,empPOJO.getLeaveDate(),empPOJO.getEmpNo());
 
     }
 
     @Override
-    public int deleteEmp(String empNo) {
+    public int deleteEmp(Connection conn, String empNo) throws SQLException {
         String sql = "delete from employee where EMPNO=?";
 
-        return DBHelper.executeUpdate(sql,empNo);
+        return DBHelper.executeNonQuery(conn,sql,empNo);
 
     }
 

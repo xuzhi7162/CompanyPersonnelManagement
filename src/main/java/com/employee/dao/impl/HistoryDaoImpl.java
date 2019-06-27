@@ -2,23 +2,19 @@ package com.employee.dao.impl;
 
 import com.employee.dao.HistoryDao;
 import com.employee.pojo.HistoryPOJO;
-import com.employee.util.C3P0Utils;
 import com.employee.util.DBHelper;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
-import sun.security.ssl.HandshakeInStream;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class HistoryDaoImpl implements HistoryDao {
-    private QueryRunner qr = new QueryRunner(C3P0Utils.getDataSource());
 
     @Override
-    public int insertHis(HistoryPOJO historyPOJO) {
+    public int insertHis(Connection conn, HistoryPOJO historyPOJO) throws SQLException {
         String sql2 = "insert into history(EMPNO,DEPTNO,SALARY,CHANGEDATE,CHANGEREASON) values(?,?,?,?,?)";
 
-        return DBHelper.executeUpdate(sql2,new Object[]{
+        return DBHelper.executeNonQuery(conn, sql2,new Object[]{
                 historyPOJO.getEmpNo()
                 ,historyPOJO.getDeptNo()
                 ,historyPOJO.getSalary()
@@ -28,10 +24,10 @@ public class HistoryDaoImpl implements HistoryDao {
     }
 
     @Override
-    public int insertLeave(HistoryPOJO historyPOJO) {
+    public int insertLeave(Connection conn, HistoryPOJO historyPOJO) throws SQLException {
         String sql = "insert into history(EMPNO,DEPTNO,SALARY,CHANGEDATE,CHANGEREASON,DIMISSIONDATE,DIMISSIONREASON) values(?,?,?,?,?,?,?)";
 
-        return DBHelper.executeUpdate(sql,new Object[]{
+        return DBHelper.executeNonQuery(conn,sql,new Object[]{
                 historyPOJO.getEmpNo()
                 ,historyPOJO.getDeptNo()
                 ,historyPOJO.getSalary()
@@ -44,10 +40,10 @@ public class HistoryDaoImpl implements HistoryDao {
     }
 
     @Override
-    public int deleteHis(String empNo) {
+    public int deleteHis(Connection conn, String empNo) throws SQLException {
         String sql = "delete from history where EMPNO=?";
 
-        return DBHelper.executeUpdate(sql,empNo);
+        return DBHelper.executeNonQuery(conn,sql,empNo);
 
     }
 
@@ -57,7 +53,7 @@ public class HistoryDaoImpl implements HistoryDao {
                 "\t* \n" +
                 "FROM\n" +
                 "\thistory\n" +
-                "\tLEFT JOIN employee ON history.EMPNO = employee.EMPNO\n" +
+                "\tLEFT OUTER JOIN employee ON history.EMPNO = employee.EMPNO\n" +
                 "\tLEFT JOIN dept ON history.DEPTNO = dept.DEPTNO \n" +
                 "WHERE EMPNAME LIKE ? OR DEPTNAME LIKE ?";
 
@@ -72,5 +68,5 @@ public class HistoryDaoImpl implements HistoryDao {
 
         List list = DBHelper.executeQuery(sql, HistoryPOJO.class);
         return list;
-    }
+}
 }

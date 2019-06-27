@@ -2,31 +2,26 @@ package com.employee.service;
 
 import com.employee.pojo.DeptPOJO;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 public interface DeptService {
     /**
      * 添加职位信息
-     * @param req
-     * @param resp
+     * @param deptPOJO
      */
-    void addDept(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
+    Boolean addDept(DeptPOJO deptPOJO);
 
     /**
      * 修改职位信息
      * @param deptPOJO
      */
-    void updateDept(DeptPOJO deptPOJO);
+    Boolean updateDept(DeptPOJO deptPOJO);
 
     /**
      * 修改职位信息
      * @param deptNo
      */
-    void deleteDept(Integer deptNo);
+    Boolean deleteDept(Integer deptNo);
 
     /**
      * 获取职位列表
