@@ -16,7 +16,7 @@ public class HistoryServiceImpl implements HistoryService {
 
 
     @Override
-    public Integer addHistory(Connection conn, EmpPOJO empPOJO) throws SQLException {
+    public int addHistory(Connection conn, EmpPOJO empPOJO) throws SQLException {
 
         HistoryPOJO historyPOJO = new HistoryPOJO();
         historyPOJO.setEmpNo(empPOJO.getEmpNo());
@@ -30,7 +30,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public Integer addLeave(Connection conn, EmpPOJO empPOJO) throws SQLException {
+    public int addLeave(Connection conn, EmpPOJO empPOJO) throws SQLException {
 
         HistoryPOJO historyPOJO = new HistoryPOJO();
         historyPOJO.setEmpNo(empPOJO.getEmpNo());
@@ -46,7 +46,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public Integer deleteHis(Connection conn, String empNo) throws SQLException {
+    public int deleteHis(Connection conn, String empNo) throws SQLException {
         return historyDao.deleteHis(conn, empNo);
     }
 

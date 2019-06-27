@@ -21,7 +21,7 @@ public class EmpServiceImpl implements EmpService {
 
 
     @Override
-    public Boolean addEmp(EmpPOJO empPOJO) {
+    public boolean addEmp(EmpPOJO empPOJO) {
         Connection conn = DBHelper.getConnection();
 
         String empNo = empPOJO.getEmpNo();
@@ -66,7 +66,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public Boolean updateEmp(EmpPOJO empPOJO) {
+    public boolean updateEmp(EmpPOJO empPOJO) {
         Connection conn = DBHelper.getConnection();
         try {
             conn.setAutoCommit(false);
@@ -94,7 +94,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public Boolean deleteEmp(String empNo) {
+    public boolean deleteEmp(String empNo) {
         Connection conn = DBHelper.getConnection();
 
         try {
@@ -123,7 +123,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public Boolean leaveEmp(EmpPOJO empPOJO) {
+    public boolean leaveEmp(EmpPOJO empPOJO) {
         Connection conn = DBHelper.getConnection();
 
         empPOJO.setLeaveDate(new Date(new java.util.Date().getTime()));

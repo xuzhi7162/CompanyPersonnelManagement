@@ -12,19 +12,19 @@ public interface HistoryService {
      * 添加员工修改个人信息变更记录
      * @param empPOJO
      */
-    Integer addHistory(Connection conn, EmpPOJO empPOJO) throws SQLException;
+    int addHistory(Connection conn, EmpPOJO empPOJO) throws SQLException;
 
     /**
      * 添加员工离职变更记录
      * @param empPOJO
      */
-    Integer addLeave(Connection conn, EmpPOJO empPOJO) throws SQLException;
+    int addLeave(Connection conn, EmpPOJO empPOJO) throws SQLException;
 
     /**
      * 员工减员操作，删除该员工的变更记录
      * @param empNo
      */
-    Integer deleteHis(Connection conn, String empNo) throws SQLException;
+    int deleteHis(Connection conn, String empNo) throws SQLException;
 
     /**
      * 获取变更记录列表

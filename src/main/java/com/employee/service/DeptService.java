@@ -9,19 +9,19 @@ public interface DeptService {
      * 添加职位信息
      * @param deptPOJO
      */
-    Boolean addDept(DeptPOJO deptPOJO);
+    boolean addDept(DeptPOJO deptPOJO);
 
     /**
      * 修改职位信息
      * @param deptPOJO
      */
-    Boolean updateDept(DeptPOJO deptPOJO);
+    boolean updateDept(DeptPOJO deptPOJO);
 
     /**
      * 修改职位信息
      * @param deptNo
      */
-    Boolean deleteDept(Integer deptNo);
+    boolean deleteDept(Integer deptNo);
 
     /**
      * 获取职位列表
