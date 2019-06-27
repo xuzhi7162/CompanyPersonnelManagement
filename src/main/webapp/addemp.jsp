@@ -4,7 +4,11 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<c:if test="${msg != null}">
+    <script>
+        alert('${msg}');
+    </script>
+</c:if>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -43,7 +47,7 @@
         </tr>
         <tr>
             <td width="120">员工姓名：</td>
-            <td width="380"><input type="text" name="empName" id="empname" value="${param.empName}"></td>
+            <td width="380"><input type="text" class="form-control" name="empName" id="empname" value="${param.empName}"></td>
         </tr>
         <tr>
             <td width="120">员工性别：</td>
@@ -54,12 +58,12 @@
         </tr>
         <tr>
             <td width="120">入职日期：</td>
-            <td width="380"><input class="Wdate" type="date" name="entryDate" value="${param.entryDate}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'true'})"/></td>
+            <td width="380"><input class="Wdate"  type="date" name="entryDate"  value="${param.entryDate}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:'true'})"/></td>
         </tr>
         </tr>
         <tr>
             <td width="120">联系电话：</td>
-            <td width="380"><input type="text" name="empPhone" id="empphone" value="${param.empPhone}"></td>
+            <td width="380"><input type="phone" name="empPhone" id="empphone" value="${param.empPhone}"></td>
         </tr>
         <tr>
             <td width="120">现住址：</td>
@@ -71,7 +75,7 @@
         </tr>
         <tr>
             <td colspan="2" align="center"><input type="submit" name="button" id="button" value="增加">
-                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="#">返回</a></td>
+                &nbsp; <input type="reset"  name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="/emp/list">返回</a></td>
         </tr>
     </table>
 </form>

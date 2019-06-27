@@ -57,7 +57,7 @@
         <tr>
             <td colspan="2" align="center">
                 <input type="submit"  name="button" id="button" value="增加">
-                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="#">返回</a></td>
+                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="/dept/list">返回</a></td>
         </tr>
     </table>
 </form>

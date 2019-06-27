@@ -7,6 +7,7 @@ import com.employee.service.DeptService;
 import com.employee.service.EmpService;
 import com.employee.service.impl.DeptServiceImpl;
 import com.employee.service.impl.EmpServiceImpl;
+import com.employee.util.CheckUtil;
 import com.employee.util.PageUtil;
 import com.employee.util.PathUtil;
 
@@ -57,6 +58,7 @@ public class EmpServlet extends HttpServlet {
             String empPhone = req.getParameter("empPhone");
             String empAddr = req.getParameter("empAddr");
             String salary = req.getParameter("salary");
+            Boolean aBoolean1 = CheckUtil.checkZNumber(salary);
             int empNo = (int) req.getSession().getServletContext().getAttribute("empNo");
             req.getSession().getServletContext().setAttribute("empNo",empNo + 1);
 
@@ -68,7 +70,16 @@ public class EmpServlet extends HttpServlet {
             empPOJO.setEntryDate(date);
             empPOJO.setEmpPhone(empPhone);
             empPOJO.setEmpAddr(empAddr);
-            empPOJO.setSalary(Integer.valueOf(salary));
+            if(aBoolean1){
+                empPOJO.setSalary(Integer.valueOf(salary));
+            }else{
+                List<DeptPOJO> allDepts = deptService.getAllDepts();
+                req.setAttribute("depts",allDepts);
+                req.setAttribute("msg", "工资输入格式不准确，请重新输入");
+                req.getRequestDispatcher("/addemp.jsp").forward(req,resp);
+                return;
+            }
+
 
             Boolean aBoolean = empService.addEmp(empPOJO);
             String msg = aBoolean ? "员工添加成功":"员工添加失败";
