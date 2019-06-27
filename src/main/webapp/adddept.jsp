@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>添加部门</title>
+    <base href="<%=basePath%>">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
@@ -22,13 +23,31 @@
         #tab{ background-color:#AAAAAA;}
         td{ background-color:#ffffff;}
     </style>
+    <script type="application/javascript">
+        function onclick_button(){
+            var deptname = document.getElementById("deptname").value;
+            if(deptname == "") {
+                alert("部门名称不能为空");
+                return false;
+            }
+            return true;
+        }
+        function onsubmit_form1() {
+            var deptname = document.getElementById("deptname").value;
+            if(deptname == "") {
+                alert("部门名称不能为空");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>
 <div class="page-header">
     <h3>新增部门</h3>
 </div>
-<form name="form1" method="post" action="/deptAdd">
+<form name="form1" method="post" action="/dept/add" onsubmit=" return onsubmit_form1()">
     <table id="tab" width="500" border="0" cellspacing="1" cellpadding="3">
         <tr>
             <td width="120">部门名称：</td>
@@ -36,7 +55,8 @@
         </tr>
 
         <tr>
-            <td colspan="2" align="center"><input type="submit" name="button" id="button" value="增加">
+            <td colspan="2" align="center">
+                <input type="submit"  name="button" id="button" value="增加">
                 &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="#">返回</a></td>
         </tr>
     </table>

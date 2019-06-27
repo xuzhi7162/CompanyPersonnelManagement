@@ -32,7 +32,7 @@
     <table id="tab" width="500" border="0" cellspacing="1" cellpadding="3">
         <tr>
             <td width="120">部门编号：</td>
-            <td width="380"><input type="text" name="deptNo" id="deptno" value="${dept.deptNo}"></td>
+            <td width="380"><input type="text" name="deptNo" id="deptno" value="${dept.deptNo}" readonly="readonly"></td>
         </tr>
         <tr>
             <td width="120">部门名称：</td>
@@ -41,7 +41,7 @@
 
         <tr>
             <td colspan="2" align="center"><input type="submit" name="button" id="button" value="保存">
-                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="#">返回</a></td>
+                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="/dept/list">返回</a></td>
         </tr>
     </table>
 </form>

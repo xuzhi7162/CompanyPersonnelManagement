@@ -4,6 +4,11 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<c:if test="${msg!=null}">
+    <script type="text/javascript">
+        alert( "${msg}" );
+    </script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

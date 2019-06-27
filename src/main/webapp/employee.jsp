@@ -6,6 +6,11 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
+<c:if test="${msg != null}">
+    <script>
+        alert('${msg}');
+    </script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

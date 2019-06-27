@@ -29,7 +29,7 @@
 <div class="page-header">
     <h3>新增员工</h3>
 </div>
-<form name="form1" method="post" action="/addemp.jsp">
+<form name="form1" method="post" action="/emp/add">
     <table id="tab" width="500" border="0" cellspacing="1" cellpadding="3">
         <tr>
             <td width="120">部门名称：</td>

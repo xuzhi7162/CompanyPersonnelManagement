@@ -8,8 +8,8 @@
 <head>
     <title>后台管理</title>
     <meta charset="UTF-8">
-
-    <link rel="stylesheet" type="text/css" href="${ctx}/css/bootstrap.css">
+    <base href="<%=basePath%>">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/b.tabs.css" type="text/css">
     <style type="text/css">
