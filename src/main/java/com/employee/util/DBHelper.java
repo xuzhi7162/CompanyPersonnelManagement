@@ -16,9 +16,15 @@ public class DBHelper {
 
     private static ComboPooledDataSource ds = null;
     private static QueryRunner qr = null;
+    private static Connection conn = null;
     static{
         ds = new ComboPooledDataSource();
         qr = new QueryRunner(ds);
+        try {
+            conn = ds.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -67,9 +73,16 @@ public class DBHelper {
      */
     public static int executeUpdate(String sql, Object...params) {
         try {
+//            conn.setAutoCommit(false);
             int update = qr.update(sql, params);
+//            conn.commit();
             return update;
         } catch (SQLException e) {
+//            try {
+////                conn.rollback();
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
             e.printStackTrace();
             return 0;
         }
