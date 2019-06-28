@@ -30,7 +30,7 @@ public interface HistoryDao {
      * @param empName
      * @return
      */
-    List<HistoryPOJO> queryHisByHisNo(String empName);
+    List<HistoryPOJO> queryHisByHisNo(String empName,Integer start, Integer pageSize);
 
     /**
      * 获取变更表

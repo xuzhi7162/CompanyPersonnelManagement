@@ -39,5 +39,5 @@ public interface HistoryService {
      * @param empName
      * @return
      */
-    List<HistoryPOJO> getHisByEmpName(String empName);
+    List<HistoryPOJO> getHisByEmpName(String empName,Integer currentPage, Integer pageSize);
 }

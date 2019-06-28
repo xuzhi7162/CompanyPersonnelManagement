@@ -48,16 +48,16 @@ public class HistoryDaoImpl implements HistoryDao {
     }
 
     @Override
-    public List<HistoryPOJO> queryHisByHisNo(String empName) {
+    public List<HistoryPOJO> queryHisByHisNo(String empName,Integer start, Integer pageSize) {
         String sql = "SELECT\n" +
                 "\t* \n" +
                 "FROM\n" +
                 "\thistory\n" +
                 "\tLEFT OUTER JOIN employee ON history.EMPNO = employee.EMPNO\n" +
                 "\tLEFT JOIN dept ON history.DEPTNO = dept.DEPTNO \n" +
-                "WHERE EMPNAME LIKE ? OR DEPTNAME LIKE ?";
+                "WHERE EMPNAME LIKE ? OR DEPTNAME LIKE ? limit ?,?";
 
-        List<HistoryPOJO> list = DBHelper.executeQuery(sql, HistoryPOJO.class, "%" + empName + "%","%" + empName + "%");
+        List<HistoryPOJO> list = DBHelper.executeQuery(sql, HistoryPOJO.class, "%" + empName + "%","%" + empName + "%",start, pageSize);
         return list;
 
     }

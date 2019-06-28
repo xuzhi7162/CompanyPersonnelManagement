@@ -36,6 +36,30 @@ public class PageUtil {
     }
 
     /**
+     * 查询某个表中符合条件的行数,仅适用于history表查询
+     * @param
+     * @return 表行数
+     */
+    public static int getRowsByKey(String key) {
+        String sql = "SELECT count(*) as rows FROM history LEFT OUTER JOIN employee ON history.EMPNO = employee.EMPNO LEFT JOIN dept ON history.DEPTNO = dept.DEPTNO WHERE EMPNAME LIKE ? OR DEPTNAME LIKE ?";
+        try {
+            conn = DBHelper.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,"%"+key+"%");
+            pstmt.setString(2,"%"+key+"%");
+            resultSet = pstmt.executeQuery();
+            resultSet.next();
+            int s = resultSet.getInt("rows");
+            return s;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(conn,pstmt,resultSet);
+        }
+        return 0;
+    }
+
+    /**
      * 获得分页总数
      * @param rows
      * @param
@@ -51,7 +75,7 @@ public class PageUtil {
     }
 
     public static void main(String[] args) {
-        int pageNum = getPageNum(4, 5);
+        int pageNum = getRowsByKey("王");
         System.out.println(pageNum);
     }
 }

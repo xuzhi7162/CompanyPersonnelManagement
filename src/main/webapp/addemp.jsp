@@ -32,7 +32,7 @@
 <div class="page-header">
     <h3>新增员工</h3>
 </div>
-<form name="form1" method="post" action="/emp/add" onsubmit="return onclick_submit()" >
+<form name="form1" id="form1" method="post" action="/emp/add" onsubmit="return onclick_submit()" >
     <table id="tab" width="500" border="0" cellspacing="1" cellpadding="3">
         <tr>
             <td width="120">部门名称：</td>
@@ -80,43 +80,42 @@
         </tr>
     </table>
 </form>
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
-    function onclick_submit() {
-        var deptname = document.getElementById('deptno').value;
-        var empname = document.getElementById('empname').value;
-        var entrydate = document.getElementById('entrydate').value;
-        var empphone = document.getElementById('empphone').value;
-        var empaddr = document.getElementById('empaddr').value;
-        var salary = document.getElementById('salary').value;
-        if(deptname == '') {
-            alert('请选择部门');
-            return false;
-        }else if(empname == '') {
-            alert('请输入姓名');
-            return false;
-        } else if(entrydate == '') {
-            alert('请选择入职日期');
-            return false;
-        } else if(empphone == '') {
-            alert('请输入手机号');
-            return false;
-        } else if(empaddr == '') {
-            alert('请输入地址');
-            return false;
-        } else if(salary == '') {
-            alert('请输入工资');
-            return false;
-        } else {
-            var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
-            if (!myreg.test(empphone)) {
-                alert('请输入11位有效电话号！');
+        function onclick_submit() {
+            var deptname = document.getElementById('deptno').value;
+            var empname = document.getElementById('empname').value;
+            var entrydate = document.getElementById('entrydate').value;
+            var empphone = document.getElementById('empphone').value;
+            var empaddr = document.getElementById('empaddr').value;
+            var salary = document.getElementById('salary').value;
+            if(deptname == '') {
+                alert('请选择部门');
+                return false;
+            }else if(empname == '') {
+                alert('请输入姓名');
+                return false;
+            } else if(entrydate == '') {
+                alert('请选择入职日期');
+                return false;
+            } else if(empphone == '') {
+                alert('请输入手机号');
+                return false;
+            } else if(empaddr == '') {
+                alert('请输入地址');
+                return false;
+            } else if(salary == '') {
+                alert('请输入工资');
                 return false;
             } else {
-                return true;
+                var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+                if (!myreg.test(empphone)) {
+                    alert('请输入11位有效电话号！');
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
-    }
 </script>
 </body>
 </html>

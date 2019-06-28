@@ -61,7 +61,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public List<HistoryPOJO> getHisByEmpName(String empName) {
-        return historyDao.queryHisByHisNo(empName);
+    public List<HistoryPOJO> getHisByEmpName(String empName,Integer currentPage, Integer pageSize) {
+        return historyDao.queryHisByHisNo(empName,currentPage * pageSize,pageSize);
     }
 }

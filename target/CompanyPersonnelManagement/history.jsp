@@ -92,6 +92,7 @@
         var test = selected;
         window.location = '/history/list?currentPage=' + test;
     }
+
 </script>
 </body>
 </html>

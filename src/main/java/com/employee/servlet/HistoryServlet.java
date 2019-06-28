@@ -41,7 +41,19 @@ public class HistoryServlet extends HttpServlet {
             req.getRequestDispatcher("/history.jsp").forward(req,resp);
         } else if(path.equals("search")) {
             String key = req.getParameter("key");
-            List<HistoryPOJO> hisByEmpName = historyService.getHisByEmpName(key);
+            String currentPage = req.getParameter("currentPage");
+            int current = 0;
+            if(currentPage != null){
+                current = Integer.parseInt(currentPage) - 1;
+            }
+            List<HistoryPOJO> hisByEmpName = historyService.getHisByEmpName(key, current, 5);
+            PagePOJO page = new PagePOJO();
+            int rows = PageUtil.getRowsByKey(key);
+            page.setRows(rows);
+            page.setPageNum(PageUtil.getPageNum(rows,5));
+            page.setPageCurrent(current + 1);
+
+            req.setAttribute("page", page);
             req.setAttribute("historys",hisByEmpName);
             req.getRequestDispatcher("/history.jsp").forward(req,resp);
         }
