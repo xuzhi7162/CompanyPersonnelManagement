@@ -76,8 +76,10 @@
                     <td>${obj.salary}</td>
                     <td>${obj.leaveDate}</td>
                     <td>
-                        <a href="/emp/info?empNo=${obj.empNo}">变更</a>&nbsp;&nbsp;
-                        <a href="/emp/leaveinfo?empNo=${obj.empNo}">离职</a>&nbsp;&nbsp;
+                        <c:if test="${obj.state == 1}" >
+                            <a href="/emp/info?empNo=${obj.empNo}">变更</a>&nbsp;&nbsp;
+                            <a href="/emp/leaveinfo?empNo=${obj.empNo}">离职</a>&nbsp;&nbsp;
+                        </c:if>
                         <a href="javascript:if(confirm('确认要减员吗？')){window.location='/emp/delete?empNo=${obj.empNo}'}">减员</a>
                     </td>
                 </tr>

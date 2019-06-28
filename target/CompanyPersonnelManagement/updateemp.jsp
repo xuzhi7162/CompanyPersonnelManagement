@@ -77,7 +77,7 @@
         </tr>
         <tr>
             <td colspan="2" align="center"><input type="submit" name="button" id="button" value="保存">
-                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="#">返回</a></td>
+                &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="/emp/list">返回</a></td>
         </tr>
     </table>
 </form>
