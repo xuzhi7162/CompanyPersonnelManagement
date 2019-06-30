@@ -46,4 +46,6 @@ public interface DeptDao {
      */
     List<DeptPOJO> queryDeptByPage(Integer start, Integer size);
 
+    int checkDept(String deptName);
+
 }

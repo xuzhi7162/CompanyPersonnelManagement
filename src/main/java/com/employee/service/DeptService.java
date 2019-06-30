@@ -44,4 +44,7 @@ public interface DeptService {
     DeptPOJO getDeptsByDeptNo(Integer deptNo);
 
 
+    boolean checkDept(String deptName);
+
+
 }

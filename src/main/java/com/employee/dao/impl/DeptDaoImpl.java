@@ -59,12 +59,22 @@ public class DeptDaoImpl implements DeptDao {
         return list;
     }
 
+    @Override
+    public int checkDept(String deptName) {
+        String sql = "select * from dept where DEPTNAME=?";
+        List list = DBHelper.executeQuery(sql, DeptPOJO.class, deptName);
+
+        return list.size();
+    }
+
 
     public static void main(String[] args) {
         DeptDaoImpl deptDao = new DeptDaoImpl();
         DeptPOJO deptPOJO = deptDao.queryDeptByDeptNo(6);
         System.out.println(deptPOJO);
     }
+
+
 
 
 }

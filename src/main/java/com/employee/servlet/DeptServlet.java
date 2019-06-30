@@ -72,8 +72,10 @@ public class DeptServlet extends HttpServlet {
 
             req.setAttribute("msg",msg);
             req.getRequestDispatcher("dept/list").forward(req,resp);
-        } else if("page".equals(path)) {
-
+        } else if(path.equals("check")) {
+            String check = req.getParameter("checkName");
+            boolean b = deptService.checkDept(check);
+            resp.getWriter().print(b);
         }
     }
 

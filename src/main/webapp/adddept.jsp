@@ -24,14 +24,6 @@
         td{ background-color:#ffffff;}
     </style>
     <script type="application/javascript">
-        function onclick_button(){
-            var deptname = document.getElementById("deptname").value;
-            if(deptname == "") {
-                alert("部门名称不能为空");
-                return false;
-            }
-            return true;
-        }
         function onsubmit_form1() {
             var deptname = document.getElementById("deptname").value;
             if(deptname == "") {
@@ -47,7 +39,7 @@
 <div class="page-header">
     <h3>新增部门</h3>
 </div>
-<form name="form1" method="post" action="/dept/add" onsubmit=" return onsubmit_form1()">
+<form name="form1" id="form1" method="post" action="/dept/add" onsubmit=" return onsubmit_form1()">
     <table id="tab" width="500" border="0" cellspacing="1" cellpadding="3">
         <tr>
             <td width="120">部门名称：</td>
@@ -56,10 +48,32 @@
 
         <tr>
             <td colspan="2" align="center">
-                <input type="submit"  name="button" id="button" value="增加">
+                <input type="button"  name="button" id="button" value="增加">
                 &nbsp; <input type="reset" name="button2" id="button2" value="取消">&nbsp;&nbsp;<a href="/dept/list">返回</a></td>
         </tr>
     </table>
 </form>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="application/javascript">
+    $(
+        function () {
+            $("#button").click(function () {
+                var deptname = $("#deptname").val();
+                $.ajax({
+                    url:"/dept/check?checkName="+deptname,
+                    type:'get',
+                    success:function (msg) {
+                        if(msg == "true"){
+                            alert("该职位已存在，请重新输入");
+                        }else{
+                            $("#form1").submit();
+                        }
+                    }
+                })
+
+            })
+        }
+    );
+</script>
 </body>
 </html>

@@ -45,4 +45,13 @@ public class DeptServiceImpl implements DeptService {
     public DeptPOJO getDeptsByDeptNo(Integer deptNo) {
         return deptDao.queryDeptByDeptNo(deptNo);
     }
+
+    @Override
+    public boolean checkDept(String deptName) {
+        int i = deptDao.checkDept(deptName);
+        if(i > 0){
+            return true;
+        }
+        return false;
+    }
 }
